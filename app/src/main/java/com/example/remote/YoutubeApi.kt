@@ -16,12 +16,17 @@ interface YoutubeApi {
         @Query("maxResults") maxResult: Int
     ): Response<PlayList>
 
-    @GET("playlistsItems")
+    @GET("playlistItems")
     suspend fun fetchPlayListVideo(
         @Query("part") part: String,
-        @Query("playlistId") id: String,
+        @Query("playlistId") playlistId: String,
         @Query("key") apiKey: String,
-        @Query("maxResults") maxResult: Int
+    ): Response<PlayListDetail>
+
+    suspend fun fetchVideo(
+        @Query("part") part: String,
+        @Query("videoId") videoId: String,
+        @Query("key") apiKey: String,
     ): Response<PlayList>
 
 

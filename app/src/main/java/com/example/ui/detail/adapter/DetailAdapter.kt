@@ -10,15 +10,15 @@ import com.example.model.DetailVideo
 import com.example.model.Items
 import com.example.youtubeapi.R
 import kotlinx.android.synthetic.main.item_playlist.view.*
-import java.util.ArrayList
 
 class DetailAdapter(
     private val listener: OnClick
 ): RecyclerView.Adapter<ViewHolder>() {
 
-    private var itemList = ArrayList<Items>()
+    var itemList: MutableList<DetailVideo> = mutableListOf()
 
-    fun add(list: MutableList<Items>) {
+
+    fun add(list: MutableList<DetailVideo>) {
         itemList.addAll(list)
         notifyDataSetChanged()
     }
@@ -42,11 +42,11 @@ class ViewHolder(itemView: View, var listener: OnClick)
     : RecyclerView.ViewHolder(itemView) {
 
     @SuppressLint("SetTextI18n")
-    fun onBind(items: Items) {
+    fun onBind(items: DetailVideo) {
 
         itemView.textTitle.text = items.snippet?.title
 
-        itemView.imageView.loadImage(detailVideo.snippet?.thumbnails?.medium?.toString())
+        items.snippet?.thumbnails?.default?.let { itemView.imageView.loadImage(itemView.context, it?.url) }
 
         itemView.setOnClickListener {
             listener.onPlayListItemClick(items)
@@ -56,5 +56,5 @@ class ViewHolder(itemView: View, var listener: OnClick)
 }
 
 interface OnClick{
-    fun onPlayListItemClick(items: Items)
+    fun onPlayListItemClick(items: DetailVideo)
 }

@@ -19,9 +19,14 @@ class Repository(private val dataSource: RemoteDataSource) {
     }
 
 
-    fun fetchPlaylistVideo(): LiveData<Resource<PlayList>> = liveData(Dispatchers.IO) {
+    fun fetchPlaylistVideo(id: String): LiveData<Resource<PlayListDetail>> = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
-        val responseVideo = dataSource.fetchVideoPlaylist()
+        val responseVideo = dataSource.fetchVideoPlaylist(id)
         emit(responseVideo)
+    }
+
+    fun fetchVideoFromList(): LiveData<Resource<PlayList>> = liveData(Dispatchers.IO){
+        emit(Resource.loading(null))
+        val responseVideoItem = dataSource.fetchVideoItem(videoId = String())
     }
 }

@@ -12,7 +12,7 @@ class DetailPlaylistViewModel: BaseViewModel() {
 
     var loading = MutableLiveData<Boolean>()
 
-    fun fetchPlayListItem(): LiveData<Resource<PlayList>> {
-        return YouTubeApp.repository.fetchPlaylistVideo()
+    fun fetchPlayListItem(id: String): LiveData<Resource<PlayListDetail>> {
+        return YouTubeApp.repository.fetchPlaylistVideo(id)
     }
 }
